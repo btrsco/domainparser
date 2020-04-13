@@ -2,6 +2,12 @@
 
 All notable changes to `DomainParser` will be documented in this file.
 
+## Version 0.1.2
+
+Released: `04/12/2020`
+
+- Updated Dependencies
+
 ## Version 0.1.1
 
 Released: `04/12/2020`
