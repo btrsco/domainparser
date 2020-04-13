@@ -1,12 +1,12 @@
 {
     "name": "btrsco/domainparser",
     "description": "Domain Parser, parses and validates a domain name.",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "Miguel Batres Santellano",
-            "email": "miguel@xand.co",
-            "homepage": "https://xand.co"
+            "email": "miguel@batres.co",
+            "homepage": "https://batres.co"
         }
     ],
     "homepage": "https://github.com/btrsco/domainparser",
