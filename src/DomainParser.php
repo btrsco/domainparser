@@ -369,10 +369,35 @@ class DomainParser
     }
 
     /**
+     * Validate Hostname
+     * @param $hostname
+     * @return bool
+     */
+    protected function validateHostname( $hostname )
+    {
+        $punycode  = new Punycode();
+        $hostname  = $punycode->encode( $hostname );
+        $fragments = explode( '.', $hostname );
+        $valid     = true;
+
+        foreach ( $fragments as $key => $value )
+        {
+            $length = strlen( $value );
+            preg_match( "/^[a-zA-Z0-9-]+$/s", $value, $matches );
+
+            if ( $length > 63 ) $valid = false;
+            if ( empty( $matches ) ) $valid = false;
+        }
+
+        if ( strlen( $hostname ) > 253 ) $valid = false;
+
+        return $valid;
+    }
+
+    /**
      * Return Parsed Output of Specified Domain
      * @param $domain
      * @return false|mixed|string
-     * TODO: Add Domain Name Validator
      */
     public function parse( $domain )
     {
@@ -380,10 +405,12 @@ class DomainParser
         $fqdn  = $this->parseDomain( $domain );
         $tld   = $this->parseTld( $domain );
         $parts = $this->parseParts( $fqdn, $tld['tld'] );
+        $valid = $this->validateHostname( $fqdn );
 
         $puny  = new Punycode();
 
         return $this->formatOutput([
+            'valid_hostname' => $valid,
             'fqdn' => [
                 'ascii' => $puny->encode( $fqdn ),
                 'idn'   => $fqdn
