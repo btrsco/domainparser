@@ -376,7 +376,8 @@ class DomainParser
     protected function validateHostname( $hostname )
     {
         $punycode  = new Punycode();
-        $fragments = explode( '.', $punycode->encode( $hostname ) );
+        $hostname  = $punycode->encode( $hostname );
+        $fragments = explode( '.', $hostname );
         $valid     = true;
 
         foreach ( $fragments as $key => $value )
@@ -387,6 +388,8 @@ class DomainParser
             if ( $length > 63 ) $valid = false;
             if ( empty( $matches ) ) $valid = false;
         }
+
+        if ( strlen( $hostname ) > 253 ) $valid = false;
 
         return $valid;
     }
