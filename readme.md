@@ -13,7 +13,7 @@ During the parsing process, the package will download a list of all [Public Suff
 Install this package via composer:
 
 ``` bash
-$ composer require btrsco/domainparser
+$ composer require xandco/domainparser
 ```
 
 This service provider must be installed (if using anything below Laravel 5.5)
@@ -22,14 +22,14 @@ This service provider must be installed (if using anything below Laravel 5.5)
 // config/app.php
 
 'providers' => [
-    btrsco\DomainParser\DomainParserServiceProvider::class,
+    xandco\DomainParser\DomainParserServiceProvider::class,
 ];
 ```
 
 Publish and customize configuration file with:
 
 ``` bash
-$ php artisan vendor:publish --provider="btrsco\DomainParser\DomainParserServiceProvider"
+$ php artisan vendor:publish --provider="xandco\DomainParser\DomainParserServiceProvider"
 ```
 
 ## Usage
@@ -37,7 +37,7 @@ $ php artisan vendor:publish --provider="btrsco\DomainParser\DomainParserService
 Create new DomainParser object:
 
 ``` php
-use btrsco\DomainParser\DomainParser;
+use xandco\DomainParser\DomainParser;
 ...
 $domainParser = new DomainParser( $outputFormat = 'object', $options = [] );
 ```
@@ -119,7 +119,7 @@ Please see [contributing.md](contributing.md) for details and a todolist.
 
 ## Security
 
-If you discover any security related issues, please email [hello@batres.co](mailto:hello@batres.co) instead of using the issue tracker.
+If you discover any security related issues, please email [hello@xand.co](mailto:hello@xand.co) instead of using the issue tracker.
 
 ## Credits
 
@@ -130,12 +130,12 @@ If you discover any security related issues, please email [hello@batres.co](mail
 
 MIT - Please see the [license file](license.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/btrsco/domainparser.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/btrsco/domainparser.svg?style=flat-square
-[ico-license]: https://img.shields.io/packagist/l/btrsco/domainparser?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/xandco/domainparser.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/xandco/domainparser.svg?style=flat-square
+[ico-license]: https://img.shields.io/packagist/l/xandco/domainparser?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/btrsco/domainparser
-[link-downloads]: https://packagist.org/packages/btrsco/domainparser
-[link-author]: https://github.com/btrsco
-[link-license]: https://github.com/btrsco/domainparser/blob/master/license.md
+[link-packagist]: https://packagist.org/packages/xandco/domainparser
+[link-downloads]: https://packagist.org/packages/xandco/domainparser
+[link-author]: https://github.com/xandco
+[link-license]: https://github.com/xandco/domainparser/blob/master/license.md
 [link-contributors]: ../../contributors

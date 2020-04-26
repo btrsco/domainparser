@@ -2,6 +2,15 @@
 
 All notable changes to `DomainParser` will be documented in this file.
 
+## Version 0.1.3
+
+Released: `04/25/2020`
+
+- Transfer Repository to X&Co
+- Change Namespace to `xandco`
+- Add New Config Options
+- Update Documentation
+
 ## Version 0.1.2
 
 Released: `04/12/2020`
