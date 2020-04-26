@@ -218,7 +218,6 @@ class DomainParser
         return strpos( $haystack, $needle ) !== false;
     }
 
-
     /**
      * Get Substring Between Specified Points
      * @param $haystack
