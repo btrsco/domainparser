@@ -67,6 +67,7 @@ class DomainParser
         $this->setSuffixUrl( $options['list_url'] ?? config('domainparser.list.url') );
         $this->setListStart( $options['list_start'] ?? config('domainparser.list.start') );
         $this->setListEnd( $options['list_end'] ?? config('domainparser.list.end') );
+        $this->setListRemove( $options['list_remove'] ?? config('domainparser.list.remove') );
     }
 
     /**
@@ -197,6 +198,24 @@ class DomainParser
     }
 
     /**
+     * Get Items to Remove Array
+     * @return array
+     */
+    public function getListRemove()
+    {
+        return $this->_listRemove;
+    }
+
+    /**
+     * Set Items to Remove Array
+     * @param array $listRemove
+     */
+    public function setListRemove( $listRemove ): void
+    {
+        $this->_listRemove = $listRemove;
+    }
+
+    /**
      * Check if String Starts with Substring
      * @param $haystack
      * @param $needle
@@ -280,8 +299,11 @@ class DomainParser
         {
             $value = trim( $value );
 
-            if ( $this->_startsWith( $value, '//' ) ) unset( $explodedList[$key] );
-            if ( $this->_startsWith( $value, '!' ) ) unset( $explodedList[$key] );
+            foreach ( $this->getListRemove() as $remove )
+            {
+                if ( $this->_startsWith( $value, $remove ) ) unset( $explodedList[$key] );
+            }
+
             if ( empty( $value ) ) unset( $explodedList[$key] );
         }
 

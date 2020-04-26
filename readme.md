@@ -88,7 +88,7 @@ When creating the DomainParser object, you can pass two parameters: `$outputForm
 
 Output format, defaults to `object`
 
-| Format Type | Description                  |
+| Type        | Notes                        |
 |-------------|------------------------------|
 | `object`    | Returns an object            |
 | `array`     | Returns an associative array |
@@ -97,11 +97,14 @@ Output format, defaults to `object`
 
 Options array parameters:
 
-| Option      | Notes              | Type     | Default                                                                     |
-|-------------|--------------------|----------|-----------------------------------------------------------------------------|
-| `temp_path` | absolute path      | `string` | `sys_get_temp_dir()`                                                        |
-| `life_time` | in seconds         | `int`    | `604800` (7 Days)                                                           |
-| `list_url`  | url to suffix list | `string` | [Public Suffix List](https://publicsuffix.org/list/effective_tld_names.dat) |
+| Option            | Notes                        | Type     | Default                                                                     |
+|-------------------|------------------------------|----------|-----------------------------------------------------------------------------|
+| `cache_path`      | absolute path                | `string` | `sys_get_temp_dir()`                                                        |
+| `cache_life_time` | in seconds                   | `int`    | `604800` (7 Days)                                                           |
+| `list_url`        | url to suffix list           | `string` | [Public Suffix List](https://publicsuffix.org/list/effective_tld_names.dat) |
+| `list_start`      | start of suffix list         | `string` | `// ===BEGIN ICANN DOMAINS===`                                              |
+| `list_end`        | end of suffix list           | `string` | `// ===END ICANN DOMAINS===`                                                |
+| `list_remove`     | remove items that start with | `array`  | `['//', '!']`                                                               |
 
 ## Change log
 

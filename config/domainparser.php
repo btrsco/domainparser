@@ -8,7 +8,7 @@ return [
     'list' => [
         'url' => 'https://publicsuffix.org/list/effective_tld_names.dat',
         'start' => '// ===BEGIN ICANN DOMAINS===',
-        'end' => '/// ===END ICANN DOMAINS===',
+        'end' => '// ===END ICANN DOMAINS===',
         'remove' => ['//', '!']
     ]
 ];
