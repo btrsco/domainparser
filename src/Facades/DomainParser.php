@@ -1,6 +1,6 @@
 <?php
 
-namespace btrsco\DomainParser\Facades;
+namespace xandco\DomainParser\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

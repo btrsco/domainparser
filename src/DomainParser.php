@@ -1,6 +1,6 @@
 <?php
 
-namespace btrsco\DomainParser;
+namespace xandco\DomainParser;
 
 use TrueBV\Punycode;
 
@@ -36,12 +36,37 @@ class DomainParser
      */
     protected $_suffixUrl;
 
+    /**
+     * Comment for Start of Suffix List
+     * @var $_listStart
+     */
+    protected $_listStart;
+
+    /**
+     * Comment for End of Suffix List
+     * @var $_listEnd
+     */
+    protected $_listEnd;
+
+    /**
+     * Remove
+     * @var $_listRemove
+     */
+    protected $_listRemove;
+
+    /**
+     * DomainParser constructor.
+     * @param string $outputFormat
+     * @param array $options
+     */
     public function __construct( $outputFormat = 'object', $options = [] )
     {
         $this->setOutputFormat( $outputFormat );
-        $this->setTempPath( $options['temp_path'] ?? sys_get_temp_dir() );
-        $this->setCacheTime( $options['life_time'] ?? 604800 ); // 7 Days
-        $this->setSuffixUrl( $options['list_url'] ?? 'https://publicsuffix.org/list/effective_tld_names.dat' );
+        $this->setTempPath( $options['cache_path'] ?? config('domainparser.cache.path') );
+        $this->setCacheTime( $options['cache_life_time'] ?? config('domainparser.cache.life_time') );
+        $this->setSuffixUrl( $options['list_url'] ?? config('domainparser.list.url') );
+        $this->setListStart( $options['list_start'] ?? config('domainparser.list.start') );
+        $this->setListEnd( $options['list_end'] ?? config('domainparser.list.end') );
     }
 
     /**
@@ -136,6 +161,42 @@ class DomainParser
     }
 
     /**
+     * Get Comment for Start of Suffix List
+     * @return mixed
+     */
+    protected function getListStart()
+    {
+        return $this->_listStart;
+    }
+
+    /**
+     * Set Comment for Start of Suffix List
+     * @param mixed $listStart
+     */
+    protected function setListStart( $listStart ): void
+    {
+        $this->_listStart = $listStart;
+    }
+
+    /**
+     * Get Comment for End of Suffix List
+     * @return mixed
+     */
+    protected function getListEnd()
+    {
+        return $this->_listEnd;
+    }
+
+    /**
+     * Set Comment for End of Suffix List
+     * @param mixed $listEnd
+     */
+    protected function setListEnd( $listEnd ): void
+    {
+        $this->_listEnd = $listEnd;
+    }
+
+    /**
      * Check if String Starts with Substring
      * @param $haystack
      * @param $needle
@@ -156,7 +217,6 @@ class DomainParser
     {
         return strpos( $haystack, $needle ) !== false;
     }
-
 
     /**
      * Get Substring Between Specified Points
@@ -205,8 +265,8 @@ class DomainParser
      */
     protected function reloadTldList()
     {
-        $startComment  = '// ===BEGIN ICANN DOMAINS===';
-        $endComment    = '// ===END ICANN DOMAINS===';
+        $startComment  = $this->getListStart();
+        $endComment    = $this->getListEnd();
 
         $rawSuffixList = file_get_contents( $this->getSuffixUrl() );
         $rawSuffixList = $this->_stringBetween( $rawSuffixList, $startComment, $endComment );

@@ -1,6 +1,6 @@
 <?php
 
-namespace btrsco\DomainParser;
+namespace xandco\DomainParser;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -13,15 +13,7 @@ class DomainParserServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'btrsco');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'btrsco');
-        // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
-
-        // Publishing is only necessary when using the CLI.
-        if ($this->app->runningInConsole()) {
-            $this->bootForConsole();
-        }
+        if ( $this->app->runningInConsole() ) $this->bootForConsole();
     }
 
     /**
@@ -33,7 +25,6 @@ class DomainParserServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../config/domainparser.php', 'domainparser');
 
-        // Register the service the package provides.
         $this->app->singleton('domainparser', function ($app) {
             return new DomainParser;
         });
@@ -48,7 +39,7 @@ class DomainParserServiceProvider extends ServiceProvider
     {
         return ['domainparser'];
     }
-    
+
     /**
      * Console-specific booting.
      *
@@ -56,27 +47,8 @@ class DomainParserServiceProvider extends ServiceProvider
      */
     protected function bootForConsole()
     {
-        // Publishing the configuration file.
         $this->publishes([
             __DIR__.'/../config/domainparser.php' => config_path('domainparser.php'),
         ], 'domainparser.config');
-
-        // Publishing the views.
-        /*$this->publishes([
-            __DIR__.'/../resources/views' => base_path('resources/views/vendor/btrsco'),
-        ], 'domainparser.views');*/
-
-        // Publishing assets.
-        /*$this->publishes([
-            __DIR__.'/../resources/assets' => public_path('vendor/btrsco'),
-        ], 'domainparser.views');*/
-
-        // Publishing the translation files.
-        /*$this->publishes([
-            __DIR__.'/../resources/lang' => resource_path('lang/vendor/btrsco'),
-        ], 'domainparser.views');*/
-
-        // Registering package commands.
-        // $this->commands([]);
     }
 }

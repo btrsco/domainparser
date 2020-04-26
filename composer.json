@@ -1,15 +1,15 @@
 {
-    "name": "btrsco/domainparser",
+    "name": "xandco/domainparser",
     "description": "Domain Parser, parses and validates a domain name.",
     "license": "MIT",
     "authors": [
         {
             "name": "Miguel Batres Santellano",
-            "email": "miguel@batres.co",
-            "homepage": "https://batres.co"
+            "email": "miguel@xand.co",
+            "homepage": "https://xand.co"
         }
     ],
-    "homepage": "https://github.com/btrsco/domainparser",
+    "homepage": "https://github.com/xandco/domainparser",
     "keywords": ["Laravel", "DomainParser"],
     "require": {
         "ext-json": "*",
@@ -23,21 +23,21 @@
     },
     "autoload": {
         "psr-4": {
-            "btrsco\\DomainParser\\": "src/"
+            "xandco\\DomainParser\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "btrsco\\DomainParser\\Tests\\": "tests"
+            "xandco\\DomainParser\\Tests\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "btrsco\\DomainParser\\DomainParserServiceProvider"
+                "xandco\\DomainParser\\DomainParserServiceProvider"
             ],
             "aliases": {
-                "DomainParser": "btrsco\\DomainParser\\Facades\\DomainParser"
+                "DomainParser": "xandco\\DomainParser\\Facades\\DomainParser"
             }
         }
     }
