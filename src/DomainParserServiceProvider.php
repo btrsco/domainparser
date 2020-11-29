@@ -1,6 +1,6 @@
 <?php
 
-namespace xandco\DomainParser;
+namespace DomainParser;
 
 use Illuminate\Support\ServiceProvider;
 

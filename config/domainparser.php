@@ -1,7 +1,8 @@
 <?php
 
 return [
-    'cache' > [
+    'output_format' => 'object', // Options: object, array, json, serialize
+    'cache' => [
         'path' => sys_get_temp_dir(),
         'life_time' => 604800 // 7 Days
     ],

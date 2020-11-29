@@ -22,14 +22,14 @@ This service provider must be installed (if using anything below Laravel 5.5)
 // config/app.php
 
 'providers' => [
-    xandco\DomainParser\DomainParserServiceProvider::class,
+    DomainParser\DomainParserServiceProvider::class,
 ];
 ```
 
 Publish and customize configuration file with:
 
 ``` bash
-$ php artisan vendor:publish --provider="xandco\DomainParser\DomainParserServiceProvider"
+$ php artisan vendor:publish --provider="DomainParser\DomainParserServiceProvider"
 ```
 
 ## Usage
@@ -37,9 +37,9 @@ $ php artisan vendor:publish --provider="xandco\DomainParser\DomainParserService
 Create new `DomainParser` object:
 
 ``` php
-use xandco\DomainParser\DomainParser;
+use DomainParser\DomainParser;
 ...
-$domainParser = new DomainParser( $outputFormat = 'object', $options = [] );
+$domainParser = new DomainParser( $options = [] );
 ```
 
 Then call `parse()` method to parse the domain:
@@ -84,27 +84,19 @@ Here is an example of the output:
 
 ### Options
 
-When creating the `DomainParser` object, you can pass two parameters: `$outputFormat` and `$options`.
-
-Output format, defaults to `object`
-
-| Type        | Notes                        |
-|-------------|------------------------------|
-| `object`    | Returns an object            |
-| `array`     | Returns an associative array |
-| `json`      | Returns a json encoded array |
-| `serialize` | Returns a serialized array   |
+When creating the `DomainParser` object, there is only one `array` parameter that can be passed, which is *optional*.
 
 Options array parameters:
 
-| Option            | Notes                        | Type     | Default                                                                     |
-|-------------------|------------------------------|----------|-----------------------------------------------------------------------------|
-| `cache_path`      | absolute path                | `string` | `sys_get_temp_dir()`                                                        |
-| `cache_life_time` | in seconds                   | `int`    | `604800` (7 Days)                                                           |
-| `list_url`        | url to suffix list           | `string` | [Public Suffix List](https://publicsuffix.org/list/effective_tld_names.dat) |
-| `list_start`      | start of suffix list         | `string` | `// ===BEGIN ICANN DOMAINS===`                                              |
-| `list_end`        | end of suffix list           | `string` | `// ===END ICANN DOMAINS===`                                                |
-| `list_remove`     | remove items that start with | `array`  | `['//', '!']`                                                               |
+| Option            | Notes                                            | Type     | Default                                                                     |
+|-------------------|--------------------------------------------------|----------|-----------------------------------------------------------------------------|
+| `output_format`   | options (`object`, `array`, `json`, `serialize`) | `string` | `object` |
+| `cache_path`      | absolute path                                    | `string` | `sys_get_temp_dir()`                                                        |
+| `cache_life_time` | in seconds                                       | `int`    | `604800` (7 Days)                                                           |
+| `list_url`        | url to suffix list                               | `string` | [Public Suffix List](https://publicsuffix.org/list/effective_tld_names.dat) |
+| `list_start`      | start of suffix list                             | `string` | `// ===BEGIN ICANN DOMAINS===`                                              |
+| `list_end`        | end of suffix list                               | `string` | `// ===END ICANN DOMAINS===`                                                |
+| `list_remove`     | remove items that start with                     | `array`  | `['//', '!']`                                                               |
 
 Instead of setting these options when creating the object, you can alternatively set these globally in the configuration file. You can publish the configuration and customize it as shown in the [Installation](#installation) section.
 
