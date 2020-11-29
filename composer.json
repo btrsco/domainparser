@@ -23,21 +23,21 @@
     },
     "autoload": {
         "psr-4": {
-            "xandco\\DomainParser\\": "src/"
+            "DomainParser\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "xandco\\DomainParser\\Tests\\": "tests"
+            "DomainParser\\Tests\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "xandco\\DomainParser\\DomainParserServiceProvider"
+                "DomainParser\\DomainParserServiceProvider"
             ],
             "aliases": {
-                "DomainParser": "xandco\\DomainParser\\Facades\\DomainParser"
+                "DomainParser": "DomainParser\\Facades\\DomainParser"
             }
         }
     }

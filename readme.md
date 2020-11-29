@@ -22,14 +22,14 @@ This service provider must be installed (if using anything below Laravel 5.5)
 // config/app.php
 
 'providers' => [
-    xandco\DomainParser\DomainParserServiceProvider::class,
+    DomainParser\DomainParserServiceProvider::class,
 ];
 ```
 
 Publish and customize configuration file with:
 
 ``` bash
-$ php artisan vendor:publish --provider="xandco\DomainParser\DomainParserServiceProvider"
+$ php artisan vendor:publish --provider="DomainParser\DomainParserServiceProvider"
 ```
 
 ## Usage
@@ -37,7 +37,7 @@ $ php artisan vendor:publish --provider="xandco\DomainParser\DomainParserService
 Create new `DomainParser` object:
 
 ``` php
-use xandco\DomainParser\DomainParser;
+use DomainParser\DomainParser;
 ...
 $domainParser = new DomainParser( $outputFormat = 'object', $options = [] );
 ```
