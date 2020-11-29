@@ -16,7 +16,7 @@ class DomainParser
      * Path to System Temp Directory
      * @var $_tempPath
      */
-    protected $_tempPath;
+    protected $_cachePath;
 
     /**
      * Cached File Lifetime in Seconds
@@ -62,7 +62,7 @@ class DomainParser
     public function __construct( $outputFormat = 'object', $options = [] )
     {
         $this->setOutputFormat( $outputFormat );
-        $this->setTempPath( $options['cache_path'] ?? config('domainparser.cache.path') );
+        $this->setCachePath( $options['cache_path'] ?? config('domainparser.cache.path') );
         $this->setCacheTime( $options['cache_life_time'] ?? config('domainparser.cache.life_time') );
         $this->setSuffixUrl( $options['list_url'] ?? config('domainparser.list.url') );
         $this->setListStart( $options['list_start'] ?? config('domainparser.list.start') );
@@ -93,18 +93,19 @@ class DomainParser
      * @param string $path
      * @return mixed
      */
-    protected function getTempPath( $path = '' )
+    protected function getCachePath( $path = '' )
     {
-        return rtrim( $this->_tempPath, '/' ) . '/' . ltrim( $path, '/' );
+        return rtrim( $this->_cachePath, '/' ) . '/' . ltrim( $path, '/' );
     }
 
     /**
      * Set System Temp Path
      * @param mixed $tempPath
+     * @param mixed $cachePath
      */
-    protected function setTempPath( $tempPath = null ): void
+    protected function setCachePath( $cachePath = null ): void
     {
-        $this->_tempPath = $tempPath ?? sys_get_temp_dir();
+        $this->_cachePath = $cachePath ?? sys_get_temp_dir();
     }
 
     /**
@@ -275,7 +276,7 @@ class DomainParser
      */
     protected function cacheTldList()
     {
-        $fileName = $this->getTempPath( '/domainparser_tlds.json' );
+        $fileName = $this->getCachePath( '/domainparser_tlds.json' );
         file_put_contents( $fileName, json_encode( $this->getTldList() ) );
     }
 
@@ -339,7 +340,7 @@ class DomainParser
      */
     protected function loadTldList()
     {
-        $fileName = $this->getTempPath( '/domainparser_tlds.json' );
+        $fileName = $this->getCachePath( '/domainparser_tlds.json' );
 
         if ( !file_exists( $fileName ) ) $this->reloadTldList();
         else $this->setTldList( json_decode( file_get_contents( $fileName ), true ) );
