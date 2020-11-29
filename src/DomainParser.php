@@ -8,49 +8,57 @@ class DomainParser
 {
     /**
      * Output Format String ('object', 'array', 'json', 'serialize')
-     * @var $_outputFormat
+     *
+     * @var string
      */
     protected $_outputFormat;
 
     /**
      * Path to System Temp Directory
-     * @var $_tempPath
+     *
+     * @var string
      */
     protected $_cachePath;
 
     /**
      * Cached File Lifetime in Seconds
-     * @var $_cacheTime
+     *
+     * @var int
      */
     protected $_cacheTime;
 
     /**
      * List All of Top-Level Domains
-     * @var $_tldList
+     *
+     * @var array
      */
     protected $_tldList = [];
 
     /**
      * Url of Top-Level Suffix List
-     * @var $_suffixUrl
+     *
+     * @var string
      */
     protected $_suffixUrl;
 
     /**
      * Comment for Start of Suffix List
-     * @var $_listStart
+     *
+     * @var string
      */
     protected $_listStart;
 
     /**
      * Comment for End of Suffix List
-     * @var $_listEnd
+     *
+     * @var string
      */
     protected $_listEnd;
 
     /**
-     * Remove
-     * @var $_listRemove
+     * List of line prefixes to remove line
+     *
+     * @var array
      */
     protected $_listRemove;
 
@@ -72,6 +80,7 @@ class DomainParser
 
     /**
      * Get Output Format String
+     *
      * @return mixed
      */
     protected function getOutputFormat()
@@ -81,6 +90,7 @@ class DomainParser
 
     /**
      * Set Output Format String
+     *
      * @param mixed $outputFormat
      */
     protected function setOutputFormat( $outputFormat ): void
@@ -90,6 +100,7 @@ class DomainParser
 
     /**
      * Get System Temp Path
+     *
      * @param string $path
      * @return mixed
      */
@@ -100,7 +111,7 @@ class DomainParser
 
     /**
      * Set System Temp Path
-     * @param mixed $tempPath
+     *
      * @param mixed $cachePath
      */
     protected function setCachePath( $cachePath = null ): void
@@ -110,6 +121,7 @@ class DomainParser
 
     /**
      * Get File Cache Life Time
+     *
      * @return mixed
      */
     protected function getCacheTime()
@@ -119,6 +131,7 @@ class DomainParser
 
     /**
      * Set File Cache Life Time
+     *
      * @param mixed $cacheTime
      */
     protected function setCacheTime( $cacheTime ): void
@@ -128,6 +141,7 @@ class DomainParser
 
     /**
      * Get List of Top Level Suffixes
+     *
      * @return mixed
      */
     protected function getTldList()
@@ -137,6 +151,7 @@ class DomainParser
 
     /**
      * Set List of Top Level Suffixes
+     *
      * @param mixed $tldList
      */
     protected function setTldList( $tldList ): void
@@ -146,6 +161,7 @@ class DomainParser
 
     /**
      * Get Url of Top-Level Suffix List
+     *
      * @return mixed
      */
     protected function getSuffixUrl()
@@ -155,6 +171,7 @@ class DomainParser
 
     /**
      * Set Url of Top-Level Suffix List
+     *
      * @param mixed $suffixUrl
      */
     protected function setSuffixUrl( $suffixUrl ): void
@@ -164,6 +181,7 @@ class DomainParser
 
     /**
      * Get Comment for Start of Suffix List
+     *
      * @return mixed
      */
     protected function getListStart()
@@ -173,6 +191,7 @@ class DomainParser
 
     /**
      * Set Comment for Start of Suffix List
+     *
      * @param mixed $listStart
      */
     protected function setListStart( $listStart ): void
@@ -182,6 +201,7 @@ class DomainParser
 
     /**
      * Get Comment for End of Suffix List
+     *
      * @return mixed
      */
     protected function getListEnd()
@@ -191,6 +211,7 @@ class DomainParser
 
     /**
      * Set Comment for End of Suffix List
+     *
      * @param mixed $listEnd
      */
     protected function setListEnd( $listEnd ): void
@@ -200,6 +221,7 @@ class DomainParser
 
     /**
      * Get Items to Remove Array
+     *
      * @return array
      */
     public function getListRemove()
@@ -209,15 +231,17 @@ class DomainParser
 
     /**
      * Set Items to Remove Array
+     *
      * @param array $listRemove
      */
-    public function setListRemove( $listRemove ): void
+    public function setListRemove( array $listRemove ): void
     {
         $this->_listRemove = $listRemove;
     }
 
     /**
      * Check if String Starts with Substring
+     *
      * @param $haystack
      * @param $needle
      * @return bool
@@ -229,6 +253,7 @@ class DomainParser
 
     /**
      * Check if String Contains Substring
+     *
      * @param $haystack
      * @param $needle
      * @return bool
@@ -240,6 +265,7 @@ class DomainParser
 
     /**
      * Get Substring Between Specified Points
+     *
      * @param $haystack
      * @param $start
      * @param $end
@@ -255,6 +281,7 @@ class DomainParser
 
     /**
      * Encode Array Elements with Punycode
+     *
      * @param $array
      * @return array
      */
@@ -353,6 +380,7 @@ class DomainParser
 
     /**
      * Format Data for Output
+     *
      * @param $output
      * @return false|mixed|string
      */
@@ -376,6 +404,7 @@ class DomainParser
 
     /**
      * Get Valid Domain from Supplied Domain
+     *
      * @param $domain
      * @return string
      */
@@ -392,6 +421,7 @@ class DomainParser
 
     /**
      * Return All Custom Domain Parts
+     *
      * @param $domain
      * @param $tld
      * @return array
@@ -413,6 +443,7 @@ class DomainParser
 
     /**
      * Return Top-level Domain from Supplied Domain
+     *
      * @param $domain
      * @return false|mixed|string
      */
@@ -453,6 +484,7 @@ class DomainParser
 
     /**
      * Validate Hostname
+     *
      * @param $hostname
      * @return bool
      */
@@ -479,6 +511,7 @@ class DomainParser
 
     /**
      * Return Parsed Output of Specified Domain
+     *
      * @param $domain
      * @return false|mixed|string
      */
