@@ -56,12 +56,12 @@ class DomainParser
 
     /**
      * DomainParser constructor.
-     * @param string $outputFormat
+     *
      * @param array $options
      */
-    public function __construct( $outputFormat = 'object', $options = [] )
+    public function __construct( $options = [] )
     {
-        $this->setOutputFormat( $outputFormat );
+        $this->setOutputFormat( $options['output_format'] ?? config('domainparser.output_format') );
         $this->setCachePath( $options['cache_path'] ?? config('domainparser.cache.path') );
         $this->setCacheTime( $options['cache_life_time'] ?? config('domainparser.cache.life_time') );
         $this->setSuffixUrl( $options['list_url'] ?? config('domainparser.list.url') );
