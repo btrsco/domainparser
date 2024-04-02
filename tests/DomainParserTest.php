@@ -1,6 +1,6 @@
 <?php
 
-use DomainParser\DataTransferObjects\OptionsDto;
+use DomainParser\DataTransferObjects\DomainParserOptionsDto;
 use DomainParser\DomainParser;
 use DomainParser\Services\OutputService;
 
@@ -65,7 +65,7 @@ $expectedUnicodeData = [
 
 function setupOutputService(array $options): OutputService
 {
-    $optionsDto = OptionsDto::fromArray($options);
+    $optionsDto = DomainParserOptionsDto::fromArray($options);
 
     return new OutputService($optionsDto);
 }

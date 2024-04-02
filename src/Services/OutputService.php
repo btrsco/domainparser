@@ -2,12 +2,12 @@
 
 namespace DomainParser\Services;
 
-use DomainParser\DataTransferObjects\OptionsDto;
+use DomainParser\DataTransferObjects\DomainParserOptionsDto;
 
 class OutputService
 {
     public function __construct(
-        readonly protected OptionsDto $options
+        readonly protected DomainParserOptionsDto $options
     ) {}
 
     public function format(array $data): object|array|string

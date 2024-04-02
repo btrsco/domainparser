@@ -2,14 +2,14 @@
 
 namespace DomainParser\Services;
 
-use DomainParser\DataTransferObjects\OptionsDto;
+use DomainParser\DataTransferObjects\DomainParserOptionsDto;
 use DomainParser\Helpers\ArrayHelpers;
 use DomainParser\Helpers\StringHelpers;
 
 class TldListService
 {
     public function __construct(
-        readonly protected OptionsDto $options
+        readonly protected DomainParserOptionsDto $options
     ) {}
 
     public function load(): array

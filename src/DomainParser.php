@@ -2,7 +2,7 @@
 
 namespace DomainParser;
 
-use DomainParser\DataTransferObjects\OptionsDto;
+use DomainParser\DataTransferObjects\DomainParserOptionsDto;
 use DomainParser\Exceptions\ExtensionNotFoundException;
 use DomainParser\Exceptions\InvalidDomainException;
 use DomainParser\Services\OutputService;
@@ -10,15 +10,15 @@ use DomainParser\Services\TldListService;
 
 class DomainParser
 {
-    private OptionsDto     $options;
-    private TldListService $tldList;
-    private OutputService  $output;
+    private DomainParserOptionsDto $options;
+    private TldListService         $tldList;
+    private OutputService          $output;
 
-    public function __construct(array|OptionsDto $options = [])
+    public function __construct(array|DomainParserOptionsDto $options = [])
     {
-        $this->options = $options instanceof OptionsDto
+        $this->options = $options instanceof DomainParserOptionsDto
             ? $options
-            : OptionsDto::fromArray($options);
+            : DomainParserOptionsDto::fromArray($options);
 
         $this->tldList = new TldListService($this->options);
         $this->output  = new OutputService($this->options);

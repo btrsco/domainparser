@@ -2,7 +2,7 @@
 
 namespace DomainParser\DataTransferObjects;
 
-class OptionsDto
+class DomainParserOptionsDto
 {
     public function __construct(
         readonly public string $outputFormat,
@@ -17,7 +17,7 @@ class OptionsDto
         readonly public bool $listVerifySsl,
     ) {}
 
-    public static function fromArray(array $options): OptionsDto
+    public static function fromArray(array $options): DomainParserOptionsDto
     {
         return new self(
             $options['output_format'] ?? config('domainparser.output_format'),
@@ -33,7 +33,7 @@ class OptionsDto
         );
     }
 
-    public static function fromConfig(): OptionsDto
+    public static function fromConfig(): DomainParserOptionsDto
     {
         return new self(
             config('domainparser.output_format'),
