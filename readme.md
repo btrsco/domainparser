@@ -1,128 +1,156 @@
-# Domain Parser
+Domain Parser
+---
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![License][ico-license]][link-license]
 
-Domain Parser simply parses a domain name you supply.
+---
 
-During the parsing process, the package will download a list of all [Public Suffixes](https://publicsuffix.org/list/public_suffix_list.dat) provided by [Mozilla](https://www.mozilla.org), iterate through it and save it to the systems temp folder and will update this list after a week. Next, the supplied domain will get parsed and broken up into parts and compared to the saved suffix list to determine the TLD the domain is using, then will complete a sanity check on the domain to ensure validity of it. Once this is finished, you'll receive an object containing all relevant information on the domain and its parts.
+<!-- TOC -->
+  * [Domain Parser](#domain-parser)
+  * [Introduction](#introduction)
+  * [Installation](#installation)
+  * [Usage](#usage)
+    * [Configuration](#configuration)
+  * [Changelog](#changelog)
+  * [Testing](#testing)
+  * [Credits](#credits)
+  * [License](#license)
+<!-- TOC -->
+
+---
+
+## Introduction
+Parse domains quickly with this package. This `xandco/domainparser` package is a simple package that allows you to get
+the domain name, subdomains, extension and fully qualified domain name from a given URL.
+
 
 ## Installation
-
 Install this package via composer:
 
-``` bash
-$ composer require xandco/domainparser
+```bash
+composer require xandco/domainparser
 ```
 
-This service provider must be installed (if using anything below Laravel 5.5)
+You can publish the configuration file using the following command:
 
-``` php
-// config/app.php
-
-'providers' => [
-    DomainParser\DomainParserServiceProvider::class,
-];
+```bash
+php artisan vendor:publish --provider="DomainParser\DomainParserServiceProvider"
 ```
 
-Publish and customize configuration file with:
+There's no need to publish the configuration file, you can always provide the configuration values directly to the `DomainParser` class — [shown below](#configuration).
 
-``` bash
-$ php artisan vendor:publish --provider="DomainParser\DomainParserServiceProvider"
-```
 
 ## Usage
+You can use the `DomainParser` class to parse a domain from a given URL.
 
-Create new `DomainParser` object:
-
-``` php
+```php
 use DomainParser\DomainParser;
-...
-$domainParser = new DomainParser( $options = [] );
+
+$domainParser = new DomainParser();
+return $domainParser->parse('https://www.café.co.uk/');
 ```
 
-Then call `parse()` method to parse the domain:
+The above code will return the following array:
 
-``` php
-$domainParser->parse( 'www.example.com' );
-```
-
-Here is an example of the output:
-
-``` php
+```php
 [
-    'valid_hostname' => true,
-    'fqdn' => [
-        'ascii' => 'www.example.com',
-        'idn' => 'www.example.com'
+    "valid_hostname" => true,
+    "fqdn"           => [
+        "ascii"   => "www.xn--caf-dma.com",
+        "unicode" => "www.café.com",
     ],
-    'sub_domains' => [
-        'ascii' => [
-            0 => 'www'
+    "subdomains"     => [
+        "ascii"   => ["www"],
+        "unicode" => ["www"],
+    ],
+    "domain"         => [
+        "ascii"   => "xn--caf-dma",
+        "unicode" => "café",
+    ],
+    "extension"      => [
+        "group" => [
+            "ascii"   => "uk",
+            "unicode" => "uk",
         ],
-        'idn' => [
-            0 => 'www'
-        ]
-    ],
-    'domain' => [
-        'ascii' => 'example',
-        'idn' => 'example'
-    ],
-    'tld' => [
-        'group' => [
-            'ascii' => 'com',
-            'idn' => 'com'
+        "full"  => [
+            "ascii"   => "co.uk",
+            "unicode" => "co.uk",
         ],
-        'tld' => [
-            'ascii' => 'com',
-            'idn' => 'com'
-        ]
-    ]
+    ],
 ]
 ```
 
-### Options
+The `parse` method will return an array with the following keys:
 
-When creating the `DomainParser` object, there is only one `array` parameter that can be passed, which is *optional*.
+| Key               | Notes                          | Type      |
+|-------------------|--------------------------------|-----------|
+| `valid_hostname`  | Primitive validation           | `boolean` |
+| `fqdn`            | ASCII and UFT8 FQDN            | `array`   |
+| `subdomains`      | ASCII and UFT8 subdomains      | `array`   |
+| `domain`          | ASCII and UFT8 domain          | `array`   |
+| `extension.group` | ASCII and UFT8 extension group | `array`   |
+| `extension.full`  | ASCII and UFT8 full extension  | `array`   |
 
-Options array parameters:
 
-| Option            | Notes                                            | Type     | Default                                                                     |
-|-------------------|--------------------------------------------------|----------|-----------------------------------------------------------------------------|
-| `output_format`   | options (`object`, `array`, `json`, `serialize`) | `string` | `object` |
-| `cache_path`      | absolute path                                    | `string` | `sys_get_temp_dir()`                                                        |
-| `cache_life_time` | in seconds                                       | `int`    | `604800` (7 Days)                                                           |
-| `list_url`        | url to suffix list                               | `string` | [Public Suffix List](https://publicsuffix.org/list/effective_tld_names.dat) |
-| `list_start`      | start of suffix list                             | `string` | `// ===BEGIN ICANN DOMAINS===`                                              |
-| `list_end`        | end of suffix list                               | `string` | `// ===END ICANN DOMAINS===`                                                |
-| `list_remove`     | remove items that start with                     | `array`  | `['//', '!']`                                                               |
+### Configuration
+You can provide the configuration values directly to the `DomainParser` class.
 
-Instead of setting these options when creating the object, you can alternatively set these globally in the configuration file. You can publish the configuration and customize it as shown in the [Installation](#installation) section.
+```php
+use DomainParser\DomainParser;
 
-## Changelog
-
-Please see the [changelog](changelog.md) for more information on what has changed recently.
-
-## Testing
-
-``` bash
-$ composer test
+$domainParser = new DomainParser([
+    'output_format'     => 'array', // array, object, json, serialize
+    'idn_output_format' => 'both', // ascii, unicode, both
+    'cache_path'        => sys_get_temp_dir(),
+    'cache_filename'   => 'domainparser_tlds.json',
+    'cache_lifetime'   => 604800, // 1 week
+    'list_url'          => 'https://publicsuffix.org/list/effective_tld_names.dat',
+    'list_start'        => '// ===BEGIN ICANN DOMAINS===',
+    'list_end'          => '// ===END ICANN DOMAINS===',
+    'list_skip'         => ['//', '!'],
+    'list_verify_ssl'   => true,
+]);
 ```
 
-## Contributing
+The `DomainParser` class accepts an array of configuration values. The following are the available configuration values:
 
-Please see [contributing.md](contributing.md) for details and a todolist.
+| Option              | Notes                                            | Type      | Default                                                                     |
+|---------------------|--------------------------------------------------|-----------|-----------------------------------------------------------------------------|
+| `output_format`     | options (`array`, `object`, `json`, `serialize`) | `string`  | `array`                                                                     |
+| `idn_output_format` | options (`both`, `ascii`, `unicode`)             | `string`  | `both`                                                                      |
+| `cache_path`        | absolute path                                    | `string`  | `sys_get_temp_dir()`                                                        |
+| `cache_filename`    | filename                                         | `string`  | `604800` (7 Days)                                                           |
+| `cache_lifetime`    | in seconds                                       | `int`     | `604800` (7 Days)                                                           |
+| `list_url`          | url to suffix list                               | `string`  | [Public Suffix List](https://publicsuffix.org/list/effective_tld_names.dat) |
+| `list_start`        | start of suffix list                             | `string`  | `// ===BEGIN ICANN DOMAINS===`                                              |
+| `list_end`          | end of suffix list                               | `string`  | `// ===END ICANN DOMAINS===`                                                |
+| `list_skip`         | remove items that start with                     | `array`   | `['//', '!']`                                                               |
+| `list_verify_ssl`   | Verify SSL when downloading tld list             | `boolean` | `true`                                                                      |
 
-## Security
+These configuration values also map to the configuration file `config/domainparser.php`, the keys are similar to the 
+configuration keys above.
 
-If you discover any security related issues, please email [hello@xand.co](mailto:hello@xand.co) instead of using the issue tracker.
+## Changelog
+Please see [CHANGELOG](changelog.md) for more information on what has changed recently.
+
+## Testing
+You can run the tests using the following command:
+
+```bash
+composer test
+```
+
+The tests are located in the `tests` directory. You can add more tests to cover more scenarios, they are using Pest.
+
 
 ## Credits
 
 - [X&Co][link-company]
 - [Miguel Batres][link-author]
 - [All Contributors][link-contributors]
+
 
 ## License
 
