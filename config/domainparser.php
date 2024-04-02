@@ -5,8 +5,8 @@ return [
     'idn_output_format' => 'both', // Options: ascii, unicode, both
     'cache'             => [
         'path'      => sys_get_temp_dir(),
-        'file_name' => 'domainparser_tlds.json',
-        'life_time' => 604800, // 7 Days
+        'filename' => 'domainparser_tlds.json',
+        'lifetime' => 604800, // 7 Days
     ],
     'list'              => [
         'url'        => 'https://publicsuffix.org/list/effective_tld_names.dat',

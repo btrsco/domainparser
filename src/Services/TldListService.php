@@ -64,7 +64,7 @@ class TldListService
     private function cacheFilePath(): string
     {
         $cachePath = rtrim($this->options->cachePath, '/');
-        $fileName  = ltrim($this->options->cacheFileName, '/');
+        $fileName  = ltrim($this->options->cacheFilename, '/');
 
         return "$cachePath/$fileName";
     }
