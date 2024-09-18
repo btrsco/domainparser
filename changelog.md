@@ -10,7 +10,7 @@ Released: `11/29/2020`
 - Change `getTempPath()` to `getCachePath()`
 - Add `output_format` to Config
 - Change DomainParser Constructor Parameters
-- Remove `xandco` from Namespace
+- Remove `warden` from Namespace
 - Update Documentation
 
 ## Version 0.1.5
@@ -30,7 +30,7 @@ Released: `04/25/2020`
 Released: `04/25/2020`
 
 - Transfer Repository to X&Co
-- Change Namespace to `xandco`
+- Change Namespace to `warden`
 - Add New Config Options
 - Update Documentation
 

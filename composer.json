@@ -1,25 +1,24 @@
 {
-    "name": "xandco/domainparser",
+    "name": "warden/domain-parser",
     "description": "Domain Parser, parses and validates a domain name.",
     "license": "MIT",
     "authors": [
         {
-            "name": "Miguel Batres",
+            "name": "Miguel Batres Santellano",
             "email": "miguel@xand.co",
             "homepage": "https://xand.co"
         }
     ],
-    "homepage": "https://github.com/xandco/domainparser",
-    "keywords": [
-        "Laravel",
-        "DomainParser"
-    ],
+    "homepage": "https://github.com/warden/domain-parser",
+    "keywords": ["Laravel", "DomainParser"],
     "require": {
         "ext-json": "*",
-        "php": ">=8.2"
+        "illuminate/support": "^9.21|^10.0"
     },
     "require-dev": {
-        "pestphp/pest": "^2.34"
+        "phpunit/phpunit": "^8.0",
+        "mockery/mockery": "^1.1",
+        "orchestra/testbench": "~3|~4"
     },
     "autoload": {
         "psr-4": {
@@ -39,14 +38,6 @@
             "aliases": {
                 "DomainParser": "DomainParser\\Facades\\DomainParser"
             }
-        }
-    },
-    "scripts": {
-        "test": "./vendor/bin/pest"
-    },
-    "config": {
-        "allow-plugins": {
-            "pestphp/pest-plugin": true
         }
     }
 }
