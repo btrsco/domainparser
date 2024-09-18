@@ -13,6 +13,6 @@ class DomainParser extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'domainparser';
+        return 'domain-parser';
     }
 }

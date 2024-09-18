@@ -13,19 +13,7 @@ class DomainParserServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            $this->bootForConsole();
-        }
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return ['domainparser'];
+        if ( $this->app->runningInConsole() ) $this->bootForConsole();
     }
 
     /**
@@ -35,11 +23,21 @@ class DomainParserServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/domainparser.php', 'domainparser');
+        $this->mergeConfigFrom(__DIR__.'/../config/domain-parser.php', 'domain-parser');
 
-        $this->app->singleton('domainparser', function ($app) {
+        $this->app->singleton('domain-parser', function ($app) {
             return new DomainParser;
         });
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return ['domain-parser'];
     }
 
     /**
@@ -50,7 +48,7 @@ class DomainParserServiceProvider extends ServiceProvider
     protected function bootForConsole()
     {
         $this->publishes([
-            __DIR__ . '/../config/domainparser.php' => config_path('domainparser.php'),
-        ], 'domainparser.config');
+            __DIR__.'/../config/domain-parser.php' => config_path('domain-parser.php'),
+        ], 'domain-parser.config');
     }
 }
